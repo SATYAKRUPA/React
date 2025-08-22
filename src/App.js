@@ -1,0 +1,21 @@
+import React from "react";
+
+import { createRoot } from "react-dom/client";
+import Header from "./Components/Header";
+import Body from "./Components/Body";
+
+
+
+
+
+const App=()=>{
+  return  (<div className="App">
+           <Header/>  
+           <Body/>
+           </div>);
+};
+
+
+const root = createRoot(document.getElementById("root"));
+root.render(<App/>);
+
