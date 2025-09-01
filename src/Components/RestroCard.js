@@ -1,18 +1,23 @@
 import { FOOD_IMG_URL } from "../utils/contents";
 
-const RestroCard=(props)=>
-{const {resData}=props;
-return (
-       <div className="card" style={{ backgroundColor:"#f0f0f0" }}>
-          <img className="card-image" src={FOOD_IMG_URL+ resData.info.cloudinaryImageId} alt="card image"  />
-          <h3>{resData.info.name}</h3>
-          <h4>{resData.info.cuisines.join(", ")}</h4>
-          <h4>{resData.info.avgRating}rating</h4>
-          <h4>{resData.info.sla.deliveryTime} minutes</h4>
-          
-       </div>
-);
-};
+const RestroCard = ({ resData }) => {
+  const { name, cuisines, avgRating, cloudinaryImageId, areaName, costForTwo, sla } =
+    resData.info;
 
+  return (
+    <div className="card" style={{ backgroundColor: "#f0f0f0", padding: "10px", margin: "10px", width: "250px" }}>
+      <img
+       src={`https://media-assets.swiggy.com/swiggy/image/upload/${cloudinaryImageId}`}
+
+        alt={name}
+        style={{ width: "100%", borderRadius: "8px" }}
+      />
+      <h3>{name}</h3>
+      <p>{cuisines.join(", ")}</p>
+      <p>⭐ {avgRating} • {costForTwo}</p>
+      <p>{areaName} • {sla?.deliveryTime} mins</p>
+    </div>
+  );
+};
 
 export default RestroCard;

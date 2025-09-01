@@ -3,7 +3,7 @@
 
 **The Assumed Structure of the FOOD APP***
 
--components
+components
     heading
       -logo
       -Navigations:about,home,cart
