@@ -15,3 +15,22 @@ components
     footer
       -links
       -address
+
+**IN CLASS BASED COMPONENTS HOW MOUNTING WILL BE DONE**
+
+How Mounting will Happen id we have two child compoents and one parent component
+
+-Parent Constructor
+-Parent Render
+ 
+  -First Child Constructor
+  -First Child Render
+
+  -Second Child Constructor
+  -Second Child Render
+
+  <DOM UPDATED IN SINGLR BATCH>
+  -First Child componentDidMount
+  -Second Child componentDidMount
+
+-Parent componentDidMount

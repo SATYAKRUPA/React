@@ -20,7 +20,7 @@ const Menu = () => {
 
   const text = menu?.cards?.[0]?.card?.card?.text;
   const itemCards =
-    menu?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.[1]?.card?.card?.itemCards;
+    menu?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.[2]?.card?.card?.itemCards;
 
   console.log("item cards are:", itemCards);
 
