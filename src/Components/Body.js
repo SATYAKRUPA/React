@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react";
-import RestroCard from "./RestroCard";
+import RestroCard ,{withPromotedCard} from "./RestroCard";
 import Shimmer_ui from "./Shimmer_ui";
 import {Link} from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
+
 const Body = () => {
   const [list, setList] = useState([]);
   
   const [filterSearch,setFilterSearch]=useState([]);
 
-  const [copy,setCopy]=useState([])
+  const [copy,setCopy]=useState([]);
+
+  const PromotedResCard=withPromotedCard(RestroCard);
+
   
   useEffect(() => {
     const fetchData = async () => {
@@ -36,7 +41,14 @@ const Body = () => {
     fetchData();
   }, []);
   
-
+  const status=useOnlineStatus();
+  if(status===false)
+  {
+    return(
+    <h2>Your are OFFLINE please check your Network Connection</h2>
+    );
+  }
+  
   
   /*
   THIS IS CALLED CONDITIONAL RENDERING--->
@@ -52,15 +64,15 @@ const Body = () => {
 
   return list.length===0?<Shimmer_ui/>: (
     <div className="body">
-      <div className="filter">
+      <div className="flex px-4 py-2">
         
-        <div className="search">
-          <input type="text" className="search-bar" value={filterSearch} onChange={(e)=>
+        <div className=" border border-solid border-black ">
+          <input type="text" className="search-bar px-4" value={filterSearch} onChange={(e)=>
             {
               setFilterSearch(e.target.value);
             }
           } />
-          <button onClick={()=>
+          <button className="bg-green-300 rounded-xl px-4" onClick={()=>
             { 
              const searched=list.filter((res)=>(res.info.name.toLowerCase().includes(filterSearch.toLowerCase()))
             );
@@ -69,22 +81,25 @@ const Body = () => {
           }>Search</button>
         </div>
 
-        <div className="top-restaurants">
-          <button onClick={()=>{
-            const top=list.filter((e)=>e.info.avgRating>4.5);
-            setList(top);
+        <div className="top-restaurants px-5">
+          <button  className="border border-solid border-black px-4" onClick={()=>{
+            const top=list.filter((e)=>e.info.avgRating>4);
+            setCopy(top);
           }}>TOP RESTAURANTS</button>
         </div>
       </div>
      
-      <div className="restro-container">
+      <div className="restro-container flex flex-wrap">
         
          { copy.map((restaurant)=> (
-            <Link  key={restaurant.info.id} to={"/menu/" + restaurant.info.id}><RestroCard resData={restaurant} /></Link>
+            <Link  key={restaurant.info.id} to={"/menu/" + restaurant.info.id}>
+              
+              {restaurant.info.avgRating>4.2? (<PromotedResCard resData={restaurant}/>): <RestroCard resData={restaurant} />}</Link>
           ))}    
       </div>
     </div>
   );
 };
+
 
 export default Body;

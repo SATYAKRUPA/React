@@ -9,9 +9,11 @@ import Contact from "./Components/Contact";
 import Error from "./Components/Error";
 import Cart from "./Components/Cart";
 import Menu from "./Components/Menu";
+//import Grocery from "./Components/Grocery";
+import React,{lazy,Suspense} from "react";
 
 
-
+const Grocery=lazy(()=>import("./Components/Grocery"));
 const App=()=>{
   return  (<div className="App">
            <Header/>  
@@ -45,6 +47,10 @@ const appRouter=createBrowserRouter([
     path:"/menu/:resId",
     element:<Menu/>,
   },
+  {
+    path:"/grocery",
+    element:<Suspense fallback={<h1>Loading....!!</h1>} ><Grocery/></Suspense>,
+  }
     ],
     errorElement:<Error/>,
   },
