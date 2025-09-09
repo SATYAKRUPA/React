@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect ,useContext} from "react";
 import RestroCard ,{withPromotedCard} from "./RestroCard";
 import Shimmer_ui from "./Shimmer_ui";
 import {Link} from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const [list, setList] = useState([]);
@@ -12,6 +13,8 @@ const Body = () => {
   const [copy,setCopy]=useState([]);
 
   const PromotedResCard=withPromotedCard(RestroCard);
+
+  const {loggedInUser,setUserInfo}=useContext(UserContext);
 
   
   useEffect(() => {
@@ -80,15 +83,27 @@ const Body = () => {
             }
           }>Search</button>
         </div>
-
+       
         <div className="top-restaurants px-5">
-          <button  className="border border-solid border-black px-4" onClick={()=>{
+          <button  className="border border-solid border-black px-4" onClick={(e)=>{
             const top=list.filter((e)=>e.info.avgRating>4);
             setCopy(top);
           }}>TOP RESTAURANTS</button>
         </div>
+
+           <div>
+            <label>User Name : </label>
+            <input type="text" className="search-bar px-4 border border-solid border-black "  
+            value={loggedInUser}
+            onChange={(e)=>
+            {
+              setUserInfo(e.target.value);
+            }
+          } />
+          </div>
       </div>
      
+      
       <div className="restro-container flex flex-wrap">
         
          { copy.map((restaurant)=> (
